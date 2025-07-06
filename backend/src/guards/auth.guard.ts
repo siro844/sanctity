@@ -4,7 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Request as ExpressRequest} from 'express';
 import { CONFIGURABLE_MODULE_ID } from '@nestjs/common/module-utils/constants';
 
-interface AuthenticatedRequest extends ExpressRequest {
+export interface AuthenticatedRequest extends ExpressRequest {
     userId?: number;
 }
 

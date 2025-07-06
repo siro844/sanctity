@@ -35,7 +35,6 @@ model Comment {
   parentId Int?
   parent   Comment?  @relation("CommentTree", fields: [parentId], references: [id])
   children Comment[] @relation("CommentTree")
-
   deleted   Boolean   @default(false)
   deletedAt DateTime?
 
