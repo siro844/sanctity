@@ -2,6 +2,7 @@ import {
   Controller, Get, Post, Delete,
   Param, Body, Query, Req,
   ParseIntPipe, UseGuards, ValidationPipe,
+  DefaultValuePipe,
 } from '@nestjs/common';
 import { CommentService } from './comment.service';
 import { AuthGuard, AuthenticatedRequest } from 'src/guards/auth.guard';
@@ -11,7 +12,7 @@ import { CreateCommentDto } from './dto/create-comment.dto';
 @Controller('comment')
 export class CommentController {
   constructor(private readonly commentService: CommentService) { }
-  @Post()
+  @Post('/create')
   async createComment(
     @Body(new ValidationPipe()) dto: CreateCommentDto,
     @Req() req: AuthenticatedRequest,
@@ -27,7 +28,7 @@ export class CommentController {
     return this.commentService.deleteComment(id, req.userId!);
   }
 
-  @Post(':id/restore')
+  @Post('restore/:id')
   async restore(
     @Param('id', ParseIntPipe) id: number,
     @Req() req: AuthenticatedRequest,
@@ -41,7 +42,7 @@ export class CommentController {
     return this.commentService.getAll();
   }
 
-  @Get(':id/replies')
+  @Get('replies/:id')
   async getReplies(
     @Param('id', ParseIntPipe) id: number,
     @Query('cursor') cursor?: string,
@@ -50,11 +51,11 @@ export class CommentController {
     return this.commentService.getReplies(id, { cursor, limit });
   }
 
-  @Get(':id/thread')
+  @Get('thread/:id')
   async getThread(
     @Param('id', ParseIntPipe) id: number,
-    @Query('depth', ParseIntPipe) depth?: number,
+    @Query('depth',new DefaultValuePipe(20),ParseIntPipe) depth?: number,
   ) {
-    return this.commentService.getThread(id, depth ?? Infinity);
+    return this.commentService.getThread(id,depth);
   }
 }

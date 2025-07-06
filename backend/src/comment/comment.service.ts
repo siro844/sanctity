@@ -28,7 +28,7 @@ export class CommentService {
                 parentId: commentDto.parentId ?? null,
                 authorId: userId
             },
-            include: { author: true },
+            include: { author: { select: { username: true } } },
         });
     }
 
@@ -81,9 +81,10 @@ export class CommentService {
 
     async getAll() {
         return this.databaseService.comment.findMany({
-            where: { deleted: false },
+            where: { deleted: false ,parentId:null},
             orderBy: { createdAt: 'asc' },
-            include: { author: true },
+            include: { author: { select: { username: true } } },
+
         });
     }
 
@@ -99,7 +100,7 @@ export class CommentService {
             cursor: opts.cursor ? { id: Number(opts.cursor) } : undefined,
             skip: opts.cursor ? 1 : 0,
             take: limit,
-            include: { author: true },
+            include: { author: { select: { username: true } } },
         });
 
         const nextCursor = rows.length === limit ? rows[rows.length - 1].id : null;
