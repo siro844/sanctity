@@ -55,6 +55,6 @@ export class CommentController {
     @Param('id', ParseIntPipe) id: number,
     @Query('depth', ParseIntPipe) depth?: number,
   ) {
-    return this.commentService.getThread(id, depth ?? 1);
+    return this.commentService.getThread(id, depth ?? Infinity);
   }
 }
