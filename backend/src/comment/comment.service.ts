@@ -81,7 +81,7 @@ export class CommentService {
 
     async getAll() {
         return this.databaseService.comment.findMany({
-            where: { deleted: false ,parentId:null},
+            where: { deleted: false, parentId: null },
             orderBy: { createdAt: 'asc' },
             include: { author: { select: { username: true } } },
 
@@ -109,7 +109,7 @@ export class CommentService {
 
     async getThread(rootId: number, depth = Infinity) {
         const rows = await this.databaseService.$queryRawUnsafe<any[]>(`
-      WITH RECURSIVE subtree AS (
+    WITH RECURSIVE subtree AS (
         SELECT *, 0 AS depth
         FROM "comments"
         WHERE id = ${rootId}
@@ -120,8 +120,11 @@ export class CommentService {
         FROM "comments" c
         JOIN subtree s ON c."parentId" = s.id
         WHERE s.depth + 1 <= ${depth} AND c.deleted = false
-      )
-      SELECT * FROM subtree ORDER BY depth, "createdAt";
+    )
+    SELECT subtree.*, u.username
+    FROM subtree
+    JOIN "users" u ON subtree."authorId" = u.id
+    ORDER BY subtree.depth, subtree."createdAt";
     `);
 
         return this.buildTree(rows);
