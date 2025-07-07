@@ -9,7 +9,7 @@ async function bootstrap() {
     forbidNonWhitelisted: true,
   }))
   const corsOptions = {
-    origin: ["http://localhost:3000","https://sanctity-fe.vercel.app"],
+    origin: ["http://localhost:3000","https://sanctity-fe.app","http://sanctity-fe.app"],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
   };
