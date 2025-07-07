@@ -2,10 +2,10 @@ import { SignInRequest, SignUpRequest } from "@/types/auth";
 import axios from "axios";
 
 
-
+const BASE_URL = process.env.BASE_URL
 export default async function Signup(data: SignUpRequest) {
   console.log("Data to be sent:", data);
-  const response = await axios.post("http://localhost:5000/auth/signup", data, {
+  const response = await axios.post(`${BASE_URL}/auth/signup`, data, {
     headers: {
       "Content-Type": "application/json",
     },
@@ -16,7 +16,7 @@ export default async function Signup(data: SignUpRequest) {
 
 export async function Signin(data: SignInRequest) {
   console.log("Data to be sent:", data);
-  const response = await axios.post("http://localhost:5000/auth/login", data, {
+  const response = await axios.post(`${BASE_URL}/auth/login`, data, {
     headers: {
       "Content-Type": "application/json",
     },

@@ -1,0 +1,39 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'frontend/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy to server
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.PORT || 22 }}
+          script: |
+            cd sanctity
+            git pull origin master
+
+            cd frontend
+
+            # Install dependencies
+            npm install
+
+            # Set environment variables and build
+            export BASE_URL=${{ secrets.BASE_URL }}
+            npm run build
+
+            # Restart with PM2
+            pm2 restart frontend || pm2 start npm --name "frontend" -- start
+            pm2 save
