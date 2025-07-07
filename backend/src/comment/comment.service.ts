@@ -1,7 +1,7 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
-import { differenceInMinutes } from 'date-fns';
+import { differenceInMinutes, subMinutes } from 'date-fns';
 
 
 @Injectable()
@@ -85,6 +85,21 @@ export class CommentService {
             orderBy: { createdAt: 'asc' },
             include: { author: { select: { username: true } } },
 
+        });
+    }
+
+    async getDeleted(userId: number) {
+        const fifteenMinutesAgo = subMinutes(new Date(), 15);
+        return this.databaseService.comment.findMany({
+            where: {
+                deleted: true,
+                authorId: userId,
+                deletedAt: {
+                    gte: fifteenMinutesAgo,
+                },
+            },
+            orderBy: { createdAt: 'asc' },
+            include: { author: { select: { username: true } } },
         });
     }
 

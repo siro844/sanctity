@@ -58,4 +58,11 @@ export class CommentController {
   ) {
     return this.commentService.getThread(id,depth);
   }
+
+  @Get('/deleted')
+  async getDeleted(
+    @Req() req: AuthenticatedRequest,
+  ) {
+    return this.commentService.getDeleted(req.userId!);
+  }
 }

@@ -5,6 +5,9 @@ import api from "@/api/axiosInstance"
 import { CommentItem } from "@/components/comment-item"
 import { Skeleton } from "@/components/ui/skeleton"
 import { CommentForm } from "@/components/comment-form"
+import { Button } from "@/components/ui/button"
+import { Trash2 } from "lucide-react"
+import Link from "next/link"
 
 interface Author {
   username: string
@@ -48,7 +51,10 @@ export default function CommentsPage() {
   if (loading) {
     return (
       <div className="max-w-4xl mx-auto p-6 space-y-4">
-        <h1 className="text-2xl font-bold mb-6">Comments</h1>
+        <div className="flex items-center justify-between mb-6">
+          <Skeleton className="h-8 w-48" />
+          <Skeleton className="h-10 w-32" />
+        </div>
         {[...Array(5)].map((_, i) => (
           <div key={i} className="space-y-3">
             <Skeleton className="h-4 w-32" />
@@ -75,8 +81,18 @@ export default function CommentsPage() {
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-6">Comments ({comments.length})</h1>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold">Comments ({comments.length})</h1>
+        <Button variant="outline" asChild>
+          <Link href="/deleted">
+            <Trash2 className="w-4 h-4 mr-2" />
+            View Deleted Comments
+          </Link>
+        </Button>
+      </div>
+
       <CommentForm onSuccess={fetchComments} />
+
       <div className="space-y-4">
         {comments.length === 0 ? (
           <p className="text-gray-500 text-center py-8">No comments yet.</p>
