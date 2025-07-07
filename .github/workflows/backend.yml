@@ -27,7 +27,7 @@ jobs:
           port: ${{ secrets.PORT || 22 }}
           script: |
             cd sanctity
-            git pull origin main
+            git pull origin master
 
             cd backend
 
