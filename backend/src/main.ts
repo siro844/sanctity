@@ -9,7 +9,7 @@ async function bootstrap() {
     forbidNonWhitelisted: true,
   }))
   const corsOptions = {
-    origin: ["http://localhost:3000","https://sanctity-fe.app","http://sanctity-fe.app"],
+    origin: ["http://localhost:3000","https://sanctity-fe.sirodev.me","http://sanctity-fe.sirodev.me"],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
   };
