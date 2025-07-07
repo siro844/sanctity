@@ -121,7 +121,7 @@ export function DeletedCommentItem({ comment, onCommentUpdate }: DeletedCommentI
                   asChild
                   className="text-xs text-gray-600 hover:text-gray-900 p-0 h-auto font-normal"
                 >
-                  <Link href={`/comment/${comment.parentId}`}>
+                  <Link href={`/comments/${comment.parentId}`}>
                     <ExternalLink className="w-3 h-3 mr-1" />
                     View parent thread
                   </Link>
@@ -133,7 +133,7 @@ export function DeletedCommentItem({ comment, onCommentUpdate }: DeletedCommentI
                   asChild
                   className="text-xs text-gray-600 hover:text-gray-900 p-0 h-auto font-normal"
                 >
-                  <Link href={`/comment/${comment.id}`}>
+                  <Link href={`/comments/${comment.id}`}>
                     <ExternalLink className="w-3 h-3 mr-1" />
                     View thread
                   </Link>

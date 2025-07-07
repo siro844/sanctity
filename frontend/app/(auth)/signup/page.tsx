@@ -125,7 +125,7 @@ export default function SignUp() {
           <div className="text-center text-sm">
             Already have an account?{" "}
             <a
-              href="/signin"
+              href="/login"
               className="text-primary-500 hover:text-primary-600 font-medium"
             >
               Sign In
