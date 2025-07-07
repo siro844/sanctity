@@ -2,7 +2,7 @@ import { SignInRequest, SignUpRequest } from "@/types/auth";
 import axios from "axios";
 
 
-const BASE_URL = process.env.BASE_URL
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 export default async function Signup(data: SignUpRequest) {
   console.log("Data to be sent:", data);
   const response = await axios.post(`${BASE_URL}/auth/signup`, data, {

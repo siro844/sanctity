@@ -9,6 +9,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
     
     steps:
       - name: Checkout code
@@ -27,11 +28,10 @@ jobs:
 
             cd frontend
 
-            # Install dependencies
             npm install
 
-            # Set environment variables and build
-            export BASE_URL=${{ secrets.BASE_URL }}
+            export NEXT_PUBLIC_BASE_URL=${{ secrets.BASE_URL }}
+            export SKIP_ENV_VALIDATION=1
             npm run build
 
             # Restart with PM2
