@@ -4,14 +4,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Eye, EyeClosed, EyeOff } from "lucide-react";
+import { Eye, EyeClosed } from "lucide-react";
 import axios from "axios";
 
 import { Signin } from "@/api/auth";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 export default function LoginPage() {
-
   const router = useRouter();
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -22,9 +21,9 @@ export default function LoginPage() {
       const response = await Signin({ email, password });
       console.log("Login successful:", response.accessToken);
       localStorage.setItem("accessToken", response.accessToken);
-      localStorage.setItem("refreshToken",response.refreshToken)
+      localStorage.setItem("refreshToken", response.refreshToken);
       toast.success("Login successful!");
-      router.push('/comments');
+      router.push("/comments");
     } catch (error) {
       console.error("Login failed:", error);
 
@@ -54,10 +53,7 @@ export default function LoginPage() {
             </p>
           </div>
 
-          <form
-            className="space-y-4"
-            onSubmit={handleSubmit}
-          >
+          <form className="space-y-4" onSubmit={handleSubmit}>
             {/* <div className="space-y-2">
               <Label htmlFor="username">Username</Label>
               <Input
@@ -129,7 +125,7 @@ export default function LoginPage() {
           </div> */}
 
           <div className="text-center text-sm">
-            Don't Have an Account?{" "}
+            Don&apos;t have an account?{" "}
             <a
               href="/signup"
               className="text-primary-500 hover:text-primary-600 font-medium"

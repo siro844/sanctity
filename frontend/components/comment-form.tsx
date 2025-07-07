@@ -7,7 +7,6 @@ import api from "@/api/axiosInstance";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
-import { useToast } from "@/hooks/use-toast";
 import { toast } from "sonner";
 
 interface CommentFormProps {

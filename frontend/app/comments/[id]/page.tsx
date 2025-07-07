@@ -101,7 +101,6 @@ export default function CommentThreadPage() {
     )
   }
 
-  const mainComment = threadData[0]
   const totalComments = countTotalComments(threadData)
 
   return (

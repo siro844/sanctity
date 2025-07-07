@@ -16,7 +16,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { CommentForm } from "./comment-form";
-import { useToast } from "@/hooks/use-toast";
 import { toast } from "sonner";
 
 interface Author {
@@ -114,7 +113,7 @@ export function CommentItem({
       description: <span className="text-black">Comment deleted successfully</span>,
     });
       onCommentUpdate?.();
-    } catch (error: any) {
+    } catch (error:any) {
       console.error("Error deleting comment:", error);
       let errorMessage = "Failed to delete comment";
       if (error.response?.status === 403) {
