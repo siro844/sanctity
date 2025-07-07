@@ -12,6 +12,7 @@ async function bootstrap() {
     origin: ["http://localhost:3000","https://sanctity-fe.sirodev.me","http://sanctity-fe.sirodev.me"],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
+    
   };
   app.enableCors(corsOptions);
   await app.listen(process.env.PORT ?? 5000);
